@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suicide Ideation Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Suicide Ideation Detection</h1>
+
+    <textarea id="tweet" placeholder="Enter tweet..."></textarea><br>
+    <button onclick="predictTweet()">Predict</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function predictTweet() {
+            const tweet = document.getElementById('tweet').value;
+            const response = await fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tweet: tweet }),
+            });
+
+            const data = await response.json();
+            document.getElementById('result').innerText = data.message;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suicide Ideation Detection</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #f7f9fc, #dff2f5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #005f73;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #0a4a64;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #00a896;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #028e7d;
+        }
+
+        .result {
+            margin-top: 2rem;
+            background-color: #f1fdfc;
+            border-left: 5px solid #00a896;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .result h2 {
+            color: #007f6d;
+        }
+
+        .confidence {
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Suicide Ideation Detection</h1>
+        <form method="POST" action="/predict">
+            <label for="tweet">Enter a tweet:</label>
+            <textarea id="tweet" name="tweet" rows="4" required>{{ tweet if tweet else '' }}</textarea>
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result:</h2>
+            <p>{{ prediction }}</p>
+            {% if confidence is defined %}
+            <p class="confidence">Confidence: {{ confidence }}%</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
